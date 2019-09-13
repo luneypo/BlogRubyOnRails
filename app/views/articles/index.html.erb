@@ -1,0 +1,16 @@
+<h1>Bienvenue dans mon Blog</h1>
+
+<% @articles.each do |article|%>
+    <p><a href="<%= article.id %>"><%= article.title %></a></p>
+<% end %>
+
+<h2>Ajouter un article</h2>
+    <%= form_tag "/", method: "post" do %>
+        <label for="title">Titre</label>
+        <input type="text" name="title" id="title">
+        <br>
+        <label for="content">Contenu</label>
+        <textarea type="text" name="content" id="content"></textarea>
+        <br>
+        <input type="submit" value="Ajouter l'article">
+    <% end %>

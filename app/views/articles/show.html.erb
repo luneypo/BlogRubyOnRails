@@ -1,0 +1,22 @@
+<h1><%= @article.title %></h1>
+  <p><%= @article.content %></p>
+<h2>Commentaires</h2>
+  <% @commentaires.each do |commentaire|%>
+    <h2><%=commentaire.title %></h2>
+    <p> <%=commentaire.content%></p>
+  <% end %>
+<h2>Ajouter un Commentaires</h2>
+<%= form_tag "comment/#{@article.id}", method: "post" do %>
+     <label for="title">Titre</label>
+      <input type="text" name="title" id="title">
+      <br>
+      <label for="content">Contenu</label>
+      <textarea type="text" name="content" id="content"></textarea>
+      <br>
+      <input type="submit" value="Ajouter le commentaire">
+<% end %>
+<%= form_tag "/#{@article.id}", method: "delete" do %>
+    <input type="submit" value="Supprimer l'article" />
+<% end %>
+
+<p><a href="/">Retourner à l’index</a></p>
