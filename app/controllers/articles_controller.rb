@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   def index
-    @articles=Article.all
+    @articles=Article.page(params[:page]).per(5)
   end
   def create
     # Book.create title:params[:title]
@@ -13,7 +13,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    @commentaires = Commentaire.where(article_id:params[:id])
+    @commentaires = Commentaire.where(article_id:params[:id]).page(params[:page]).per(5)
   end
 
   # def update
@@ -28,9 +28,11 @@ class ArticlesController < ApplicationController
   
   def destroy
     Article.find(params[:id]).destroy
+    Commentaire.where(article_id:params[:id]).each do |commentaire|
+      commentaire.destroy
+    end
     redirect_to "/"
   end
-
   def comment
     # Book.create title:params[:title]
     @article = Article.find(params[:id])
